@@ -6,6 +6,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+.emailField, .passwordField {
+  width:150px;
+  margin:2px;
+}
+.passwordField {
+  width:150px;
+}
 .verifyCodeField {
   width:60px;
 }
@@ -17,14 +26,21 @@ body {
   float:left;
   border:0px solid black;
 }
+.signupFormCont {
+  width:340px;
+  margin:2px auto;
+  text-align:right;
+  border:1px solid black;
+}
 .signupBlock {
   float:right;
 }
 .userId {
   font-weight:bold;
 }
-.submitBtn {
+.submitBtn, .cancelBtn {
   cursor:pointer;
+  margin:4px;
 }
 
 .cb {
@@ -93,6 +109,7 @@ body {
   margin:0px auto;
   color:#000000;
   font-weight:bold;
+  float:none;
 }
 .scoreWrong {
   width:20px;
@@ -109,7 +126,6 @@ body {
   border-radius:5px;
   cursor:pointer;
   background-color:#dddddd;
-  float:right;
 }
 button.restartBtn:hover {
   background-color:#A9A9A9;

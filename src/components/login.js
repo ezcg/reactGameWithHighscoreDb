@@ -4,6 +4,7 @@ import {GlobalContext} from "../context/GlobalState";
 export default function Login () {
 
   const {
+    setMessage,
     setShowLoginForm,
     showLoginForm,
     showSignupForm,
@@ -21,6 +22,7 @@ export default function Login () {
     setUserId("matt")
     setIsLoggedIn(1)
     setShowLoginForm(0)
+    setMessage("")
   }
   function handleShowLoginForm() {
     setShowLoginForm(1)
@@ -33,21 +35,22 @@ export default function Login () {
   function handleVerifyCode() {
     setIsVerified(1)
     setShowLoginForm(1)
+    setMessage("Verified! Now login and you'll be able to submit your highscores.")
   }
 
-  // console.log(
-  //   "isLoggedIn",
-  //   isLoggedIn,
-  //   "showLoginForm",
-  //   showLoginForm,
-  //   "isLoggedIn",
-  //   isLoggedIn,
-  //   "isSignedUp",
-  //   isSignedUp,
-  //   "isVerified",
-  //   isVerified,
-  //   "userId",
-  //   userId)
+  console.log(
+    "isLoggedIn",
+    isLoggedIn,
+    "showLoginForm",
+    showLoginForm,
+    "isLoggedIn",
+    isLoggedIn,
+    "isSignedUp",
+    isSignedUp,
+    "isVerified",
+    isVerified,
+    "userId",
+    userId)
 
   // possible states:
   // signed up but not verified

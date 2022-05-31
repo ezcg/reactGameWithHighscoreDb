@@ -62,7 +62,7 @@ export default function Table () {
     }
     setActiveCardsArr([]);
   }
-console.log("wrong", wrong)
+
   let restartBtnStyle = gameover ? {display:'block'} : {display:'none'};
 
   return <div className="tableCont" key={"key_" + activeCardsArr.length}>
