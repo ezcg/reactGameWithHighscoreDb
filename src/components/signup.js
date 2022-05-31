@@ -3,7 +3,7 @@ import {GlobalContext} from "../context/GlobalState";
 
 export default function Signup () {
 
-  const { isLoggedIn, isSignedUp, setMessage, setIsSignedUp, showSignupForm, setShowSignupForm } = useContext(GlobalContext);
+  const { isLoggedIn, isSignedUp, setMessage, setIsSignedUp, showSignupForm, setShowSignupForm, showLoginForm } = useContext(GlobalContext);
 
   function handleCancelSubmit() {
     setShowSignupForm(0)
@@ -21,14 +21,14 @@ export default function Signup () {
 
   let signupBtnStyle = {display:"none"}
   let signupFormStyle = {display:"none"}
-  if (showSignupForm) {
+  if (!showLoginForm && showSignupForm) {
     signupFormStyle = {display:"block"}
-  } else if (!isSignedUp && !isLoggedIn) {
+  } else if (!showLoginForm && !isSignedUp && !isLoggedIn) {
     signupBtnStyle = {display:"block"}
   }
-console.log("isLoggedIn", isLoggedIn, "isSignedUp", isSignedUp, "showSignupForm", showSignupForm)
+console.log("signup.js isLoggedIn", isLoggedIn, "isSignedUp", isSignedUp, "showSignupForm", showSignupForm)
   return (
-    <div>
+    <div key = {isSignedUp + "_" + isLoggedIn + "_" + showSignupForm}>
       <div className="signupBlock" style={signupBtnStyle}>
         <button className="submitBtn"  onClick={handleShowSignupClick}>Signup</button>
       </div>

@@ -12,6 +12,7 @@ export default function Login () {
     setIsLoggedIn,
     isSignedUp,
     setIsSignedUp,
+    setShowSignupForm,
     isVerified,
     setIsVerified,
     userId,
@@ -26,12 +27,18 @@ export default function Login () {
   }
   function handleShowLoginForm() {
     setShowLoginForm(1)
+    setShowSignupForm(0)
   }
   function handleLogoutClick() {
     setIsLoggedIn(0)
     setIsSignedUp(0)
     setUserId("")
   }
+  function handleCancelSubmit() {
+    setShowLoginForm(0)
+    setMessage("")
+  }
+
   function handleVerifyCode() {
     setIsVerified(1)
     setShowLoginForm(1)
@@ -94,6 +101,7 @@ export default function Login () {
         email: <input className='emailField' type='text' />
         password: <input className='emailField' type='password' />
         <button className="submitBtn" onClick={handleLogin}>Submit</button>
+        <button className="cancelBtn"  onClick={handleCancelSubmit}>Cancel</button>
       </div>
     </div>
   )

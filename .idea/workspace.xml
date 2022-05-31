@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a2e740d-3b10-4289-b374-d3518b84ce94" name="Changes" comment="init">
+    <list default="true" id="0a2e740d-3b10-4289-b374-d3518b84ce94" name="Changes" comment="signup/login forms created and flow working but without real data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1654010330000</updated>
       <workItem from="1654010331154" duration="79000" />
-      <workItem from="1654010420510" duration="11351000" />
+      <workItem from="1654010420510" duration="12123000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1654020061917</created>
@@ -67,7 +65,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654020061918</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="signup/login forms created and flow working but without real data">
+      <created>1654025543222</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1654025543222</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +91,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="signup/login forms created and flow working but without real data" />
+    <option name="LAST_COMMIT_MESSAGE" value="signup/login forms created and flow working but without real data" />
   </component>
 </project>
