@@ -1,5 +1,20 @@
 let reducer = (state, action) => {
   switch (action.type) {
+    case 'SHOW_SUBMIT_SCORE_BTN':
+      return {
+        ...state,
+        showSubmitScoreBtn:action.payload
+      }
+    case 'CURRENT_SCORE':
+      return {
+        ...state,
+        currentScore:action.payload
+      }
+    case 'HIGH_SCORE':
+      return {
+        ...state,
+        highScore:action.payload
+      }
     case 'SHOW_LOGIN_FORM':
       return {
         ...state,
@@ -56,7 +71,9 @@ let reducer = (state, action) => {
         gameover: 0,
         message: '',
         right:0,
-        wrong:0
+        wrong:0,
+        currentScore:0,
+        showSubmitScoreBtn:0
       }
     case 'ACTIVE_CARDS':
       return {

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {GlobalContext} from "../context/GlobalState";
 
 export default function Login () {
@@ -16,48 +16,74 @@ export default function Login () {
     isVerified,
     setIsVerified,
     userId,
-    setUserId
+    setUserId,
+    highScore,
+    setHighScore
   } = useContext(GlobalContext);
 
-  function handleLogin() {
-    setUserId("matt")
+  let [data, setData] = useState({"email":"","password":""})
+
+  const changeHandler = e => {
+    let obj = {[e.target.name]:e.target.value}
+    setData({...data, ...obj})
+  }
+  const {email, password} = data;
+
+  async function handleLoginSubmit(e) {
+    e.preventDefault();
+    let r = await window.ScoreApp.login(email, password)
+    if (r.result === false) {
+      setMessage(r.message)
+      return
+    }
+    setUserId(email)
+    setIsVerified(1)
     setIsLoggedIn(1)
     setShowLoginForm(0)
     setMessage("")
+    let score = await window.ScoreApp.retrieveScore(email)
+    setHighScore(score)
   }
   function handleShowLoginForm() {
     setShowLoginForm(1)
     setShowSignupForm(0)
   }
-  function handleLogoutClick() {
+  async function handleLogoutClick() {
+    window.ScoreApp.logout()
     setIsLoggedIn(0)
     setIsSignedUp(0)
     setUserId("")
+    setUserId("")
+    setIsVerified(0)
+    setIsLoggedIn(0)
+    setShowLoginForm(0)
+    setMessage("")
   }
   function handleCancelSubmit() {
     setShowLoginForm(0)
     setMessage("")
   }
 
-  function handleVerifyCode() {
+  async function handleVerifyCode() {
+
     setIsVerified(1)
     setShowLoginForm(1)
     setMessage("Verified! Now login and you'll be able to submit your highscores.")
   }
 
-  console.log(
-    "isLoggedIn",
-    isLoggedIn,
-    "showLoginForm",
-    showLoginForm,
-    "isLoggedIn",
-    isLoggedIn,
-    "isSignedUp",
-    isSignedUp,
-    "isVerified",
-    isVerified,
-    "userId",
-    userId)
+  // console.log("login.js",
+  //   "isLoggedIn",
+  //   isLoggedIn,
+  //   "showLoginForm",
+  //   showLoginForm,
+  //   "isLoggedIn",
+  //   isLoggedIn,
+  //   "isSignedUp",
+  //   isSignedUp,
+  //   "isVerified",
+  //   isVerified,
+  //   "userId",
+  //   userId)
 
   // possible states:
   // signed up but not verified
@@ -97,12 +123,12 @@ export default function Login () {
         Code: <input className='verifyCodeField' type='text' />
         <button className="submitBtn" onClick={handleVerifyCode}>Submit</button>
       </div>
-      <div style={loginFormStyle} className="verifyBlock">
-        email: <input className='emailField' type='text' />
-        password: <input className='emailField' type='password' />
-        <button className="submitBtn" onClick={handleLogin}>Submit</button>
+      <form style={loginFormStyle} className="verifyBlock"  onSubmit={handleLoginSubmit}>
+        email: <input name="email" className='emailField' type='text' value={email} onChange={changeHandler} required />
+        password: <input name="password" className='emailField' type='password' value={password} onChange={changeHandler} required />
+        <input type = "submit" className="submitBtn" />
         <button className="cancelBtn"  onClick={handleCancelSubmit}>Cancel</button>
-      </div>
+      </form>
     </div>
   )
 

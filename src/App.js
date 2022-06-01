@@ -16,6 +16,7 @@ function App() {
           <Signup />
           <Login />
         </div>
+        <div className="cb"></div>
         <Scoreboard />
         <Table />
       </div>

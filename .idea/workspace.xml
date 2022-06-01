@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a2e740d-3b10-4289-b374-d3518b84ce94" name="Changes" comment="signup/login forms created and flow working but without real data">
+      <change afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/scoreboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/AppReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AppReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/GlobalState.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/GlobalState.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +41,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/matt/PhpstormProjects/reactGameWithHighscoreDb/src/components",
+    "last_opened_file_path": "/home/matt/PhpstormProjects/loginscore",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1654010330000</updated>
       <workItem from="1654010331154" duration="79000" />
-      <workItem from="1654010420510" duration="12123000" />
+      <workItem from="1654010420510" duration="30103000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1654020061917</created>
@@ -72,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654025543222</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="signup/login forms created and flow working but without real data">
+      <created>1654026300504</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654026300504</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

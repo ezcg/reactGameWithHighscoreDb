@@ -2,6 +2,9 @@ import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 
 const initialState = {
+  setShowSubmitScoreBtn:0,
+  currentScore:0,
+  highScore:0,
   showLoginForm:0,
   showSignupForm:0,
   isVerified:0,
@@ -18,6 +21,24 @@ const initialState = {
 export const GlobalContext = createContext(initialState)
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState)
+  function setShowSubmitScoreBtn(value) {
+    dispatch({
+      type: 'SHOW_SUBMIT_SCORE_BTN',
+      payload: value
+    })
+  }
+  function setCurrentScore(value) {
+    dispatch({
+      type: 'CURRENT_SCORE',
+      payload: value
+    })
+  }
+  function setHighScore(value) {
+    dispatch({
+      type: 'HIGH_SCORE',
+      payload: value
+    })
+  }
   function setShowLoginForm(value) {
     dispatch({
       type: 'SHOW_LOGIN_FORM',
@@ -99,6 +120,9 @@ export const GlobalProvider = ({ children }) => {
   }
 
   return (<GlobalContext.Provider value={{
+    showSubmitScoreBtn:state.showSubmitScoreBtn,
+    currentScore:state.currentScore,
+    highScore:state.highScore,
     showLoginForm:state.showLoginForm,
     showSignupForm:state.showSignupForm,
     isVerified:state.isVerified,
@@ -110,6 +134,7 @@ export const GlobalProvider = ({ children }) => {
     message:state.message,
     gameover:state.gameover,
     activeCardsArr:state.activeCardsArr,
+    setShowSubmitScoreBtn,
     setShowSignupForm,
     setShowLoginForm,
     setIsVerified,
@@ -121,7 +146,9 @@ export const GlobalProvider = ({ children }) => {
     setMessage,
     setGameover,
     reset,
-    setActiveCardsArr
+    setActiveCardsArr,
+    setHighScore,
+    setCurrentScore
   }}>
   {children}
   </GlobalContext.Provider>)
