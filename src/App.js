@@ -6,6 +6,7 @@ import { GlobalProvider } from './context/GlobalState'
 import Scoreboard from "./components/scoreboard";
 import Login from "./components/login"
 import Signup from './components/signup'
+import Verify from './components/verify'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <div className="loginSignupCont">
           <Signup />
           <Login />
+          <Verify />
         </div>
         <div className="cb"></div>
         <Scoreboard />

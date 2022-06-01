@@ -1,5 +1,35 @@
 let reducer = (state, action) => {
   switch (action.type) {
+    case 'SHOW_SPINNER':
+      return {
+        ...state,
+        showSpinner:action.payload
+      }
+    case 'SHOW_VERIFY_FORM':
+      return {
+        ...state,
+        showVerifyForm:action.payload
+      }
+    case 'EMAIL_VERIFIED':
+      return {
+        ...state,
+        emailVerified:action.payload
+      }
+    case 'EMAIL_UNVERIFIED':
+      return {
+        ...state,
+        emailUnverified:action.payload
+      }
+    case 'PASSWORD_VERIFIED':
+      return {
+        ...state,
+        passwordVerified:action.payload
+      }
+    case 'PASSWORD_UNVERIFIED':
+      return {
+        ...state,
+        passwordUnverified:action.payload
+      }
     case 'SHOW_SUBMIT_SCORE_BTN':
       return {
         ...state,
@@ -73,7 +103,13 @@ let reducer = (state, action) => {
         right:0,
         wrong:0,
         currentScore:0,
-        showSubmitScoreBtn:0
+        showSubmitScoreBtn:0,
+        emailVerified:"",
+        emailUnverified:'',
+        passwordVerified:'',
+        passwordUnverified:'',
+        showVerifyForm:0,
+        showSpinner:0
       }
     case 'ACTIVE_CARDS':
       return {

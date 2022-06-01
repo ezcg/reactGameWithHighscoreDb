@@ -1,4 +1,1 @@
-remove jquery
-test signup
-test code verify
-test login by unverified account
+

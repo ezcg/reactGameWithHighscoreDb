@@ -1,6 +1,6 @@
 var ScoreApp = window.ScoreApp || {};
 
-(function scopeWrapper($) {
+(function scopeWrapper() {
 
   var userPool = new window.AmazonCognitoIdentity.CognitoUserPool(window.poolData);
 
@@ -19,52 +19,54 @@ var ScoreApp = window.ScoreApp || {};
   };
 
   ScoreApp.login = async function (email, password) {
-    console.log("ScoreApp.login() email", email)
-    let resultObj = {result:false, message:""}
-    let isValidEmail = validateEmail(email)
-    //console.log("email", isValidEmail)
-    if (!isValidEmail) {
-      resultObj.message = "Invalid email: " + email
-      return resultObj
-    }
-
-    var authenticationData = {
-      Username: email,
-      Password: password
-    };
-
-    var authenticationDetails = new window.AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-    var userData = {
-      Username: email,
-      Pool: userPool
-    }
-
-    var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser(userData);
+    //console.log("ScoreApp.login() email", email)
+    let resultObj = {result:false, message:"", userConfirmed:true}
     //console.log("login() cognitoUser", cognitoUser)
     let promise = new Promise ((resolve, reject) => {
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function () {
-          resultObj.result = true
-          return resolve(resultObj)
-        },
-        onFailure: function (err) {
-          if (err['code'] === 'UserNotConfirmedException') {
-            resultObj.message = "Email not confirmed. Enter the code that was emailed to " + email + " in the Confirm Signup form below. If you did not receive it, check your spam folder. Failing that, hit resend."
-            //resultObj.message = "Enter the code emailed to " + email + "."
-          } else if (err['code'] === 'NotAuthorizedException') {
-            resultObj.message = "Not recognizing that email and password."
-          } else {
-            console.log("unmapped error:", err['code'], err)
-          }
-          return reject(resultObj)
+      let isValidEmail = validateEmail(email)
+      //console.log("email", isValidEmail)
+      if (!isValidEmail) {
+        resultObj.message = "Invalid email: " + email
+        return reject(resultObj)
+      }
+      try {
+        var authenticationData = {
+          Username: email,
+          Password: password
         }
-      })
+        var authenticationDetails = new window.AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+        var userData = {
+          Username: email,
+          Pool: userPool
+        }
+        var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser(userData);
+        cognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: function () {
+            resultObj.result = true
+            resolve(resultObj)
+          },
+          onFailure: function (err) {
+            if (err['code'] === 'UserNotConfirmedException') {
+              resultObj.message = "Email not confirmed. Enter the code that was emailed to " + email + " in the form below. If you did not receive it, check your spam folder. Failing that, hit resend."
+              resultObj.userConfirmed = false
+            } else if (err['code'] === 'NotAuthorizedException') {
+              resultObj.message = "Not recognizing that email and password."
+            } else {
+              console.log("unmapped error:", err['code'], err)
+              resultObj.message = err
+            }
+            reject()
+          }
+        })
+      } catch(e) {
+        reject(e)
+      }
     })
 
-    return promise.then((r) => {
-      return r
-    }).catch((err) => {
-      return err
+    return promise.then(() => {
+      return resultObj
+    }).catch(() => {
+      return resultObj
     })
 
   };
@@ -80,7 +82,7 @@ var ScoreApp = window.ScoreApp || {};
         ScoreApp.useToken(function (token) {
           apiClient.scorePost({}, { score: score }, { headers: { Authorization: token } })
             .then(function (r) {
-              console.log(r)
+              //console.log(r)
               if (r.data.statusCode === 200) {
                 return resolve(r.data.body)
               } else {
@@ -108,13 +110,8 @@ var ScoreApp = window.ScoreApp || {};
           //console.log("retrieveScore token.length:", token.length)
           apiClient.scoreUserIdGet({ "user_id": email }, {}, { headers: { Authorization: token } })
             .then(function (r) {
-              let body = JSON.parse(r.data.body)
-              console.log("ScoreApp.retrieveScore body", body)
-              let score = 0
-              if (typeof body.score !== 'undefined') {
-                score = body.score
-              }
-              return resolve(score)
+              //console.log("ScoreApp.retrieveScore r", r)
+              return resolve(r.data.body.score)
             })
         } catch(e) {
           return reject(e)
@@ -138,87 +135,126 @@ var ScoreApp = window.ScoreApp || {};
   }
 
   ScoreApp.signup = async function (email, password, confirmPassword) {
-    let obj = {result:false, message:""}
+    let resultObj = {result:false, message:""}
+    let promise = new Promise((resolve,reject) => {
       if (password !== confirmPassword) {
-        obj.message = "Passwords are not matching. Please try again."
-        return obj
+        resultObj.message = "Passwords are not matching. Please try again."
+        return reject()
       }
       if (!validateEmail(email)) {
-        obj.message = "Invalid email address:" + email +" - please try again."
-        return obj
+        resultObj.message = "Invalid email address:" + email +" - please try again."
+        return reject()
       }
-      // return from new window.AmazonCognitoIdentity.CognitoUserAttribute was set to 'email' variable ?!?
-      let cognitoUser = new window.AmazonCognitoIdentity.CognitoUserAttribute({
+      try {
+        let cognitoUser = new window.AmazonCognitoIdentity.CognitoUserAttribute({
           Name: 'email',
           Value: email
-      });
-      console.log("ScoreApp.signup email returned from cognito:", email)
-
-      let promise = new Promise((resolve,reject) => {
+        });
+        //console.log("ScoreApp.signup email returned from cognito:", email)
         userPool.signUp(email, password, [cognitoUser], null, function (err, result) {
           if (err) {
-            return reject(err)
+            //console.log("ScoreApp.signup", err)
+            if (err['code'] === 'UsernameExistsException') {
+              resultObj.message = 'An account made with ' + email + ' already exists.'
+            } else if (err['code'] === 'InvalidPasswordException') {
+              resultObj.message = "Password requirements: " + window.passwordRequirements
+            } else {
+              resultObj.message = err
+            }
+            reject()
           } else {
-            return resolve()
+            resolve()
           }
         })
-      })
-      return promise.then((r) => {
-        obj.result = true
-        return obj
-      }).catch((e) => {
-        obj.message = e
-        return obj
-      })
+      } catch(e) {
+        resultObj.message = e
+        reject()
+      }
+    })
+    return promise.then((r) => {
+      resultObj.result = true
+      return resultObj
+    }).catch(() => {
+      return resultObj
+    })
   };
 
   ScoreApp.confirm = function (email, code) {
-    console.log("confirm()", email)
-    let obj = {result:false, message:""}
-      var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser({
+    //console.log("ScoreApp.confirm() email, code", email, code)
+    let resultObj = {result:false, message:""}
+    let promise = new Promise((resolve,reject) => {
+      if (!validateEmail(email)) {
+        resultObj.message = "Invalid email: " + email
+        reject()
+      }
+      if (!code ) {
+        resultObj.message = "Code not found in form. Please enter the code sent to " + email
+        reject()
+      }
+      try {
+        var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser({
           Username: email,
           Pool: userPool
-      });
-      // forceAliasCreation set to true causes the same email address to be used for different usernames?
-      //cognitoUser.confirmRegistration($('#code').val(), true, function (err, results) {
-    let promise = new Promise((resolve,reject) => {
-      cognitoUser.confirmRegistration(code, false, function (err, results) {
-        if (err) {
-          return reject(err)
-        } else {
-          return resolve()
-        }
-      })
+        });
+        // ForceAliasCreation
+        // Boolean to be specified to force user confirmation irrespective of existing alias. By default set to False.
+        // If this parameter is set to True and the phone number/email used for sign up confirmation already exists as
+        // an alias with a different user, the API call will migrate the alias from the previous user to the newly
+        // created user being confirmed. If set to False, the API will throw an AliasExistsException error.
+        cognitoUser.confirmRegistration(code, false, function (err, results) {
+          if (err) {
+            //console.log("ScoreApp.confirm err", err)
+            //console.log("ScoreApp.confirm err", err['code'])
+            if (err['code'] === 'CodeMismatchException') {
+              resultObj.message = "Invalid verification code. Check the code sent to " + email + " and please try again."
+              reject()
+            } else
+              resultObj.message = err
+              reject()
+          } else {
+            //console.log("ScoreApp.confirm results", results)
+            resolve()
+          }
+        })
+      } catch(e) {
+        reject(e)
+      }
     })
-    promise.then((r) => {
-      obj.result = true
-      obj.message = "Confirmed! Please login to continue."
-      return obj
-    }).catch((e) => {
-      obj.message = e
+    return promise.then(() => {
+      resultObj.result = true
+      resultObj.message = "Confirmed! Please login to continue."
+      return resultObj
+    }).catch(() => {
+      return resultObj
     })
   }
 
   ScoreApp.resend = function (email) {
-    console.log("resend()", email)
-    let obj = {result:false, message:""}
+    //console.log("ScoreApp.resend()", email)
+    let resultObj = {result:false, message:""}
     let promise = new Promise((resolve, reject) => {
-      var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser({
-        Username: email,
-        Pool: userPool
-      });
-      cognitoUser.resendConfirmationCode(function (err) {
-        if (err) {
-          reject(err)
-        }
-        resolve()
-      })
+      try {
+        var cognitoUser = new window.AmazonCognitoIdentity.CognitoUser({
+          Username: email,
+          Pool: userPool
+        });
+        cognitoUser.resendConfirmationCode(function (err) {
+          if (err) {
+            resultObj.message = err
+            reject()
+          }
+          resolve()
+        })
+      } catch(e) {
+        resultObj.message = e
+        reject()
+      }
     })
-    promise.then(() => {
-      obj.result = true
-    }).catch((e) => {
-      obj.message = e
-      return obj
+    return promise.then(() => {
+      resultObj.result = true
+      return resultObj
+    }).catch(() => {
+      return resultObj
     })
   };
 
@@ -236,9 +272,9 @@ var ScoreApp = window.ScoreApp || {};
         });
       }
     } else {
-      console.log("useToken() token not null")
+      //console.log("useToken() token not null")
       callback(token);
     }
   };
 
-}(window.jQuery));
+}());

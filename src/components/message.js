@@ -3,6 +3,11 @@ import { GlobalContext } from '../context/GlobalState';
 
 export default function Message () {
 
+  let {setMessage} = useContext(GlobalContext)
+  function closeMsg() {
+    setMessage("")
+  }
+
   const { message } = useContext(GlobalContext)
   let messageStyle = {display:'none'}
   if (message) {
@@ -11,7 +16,9 @@ export default function Message () {
 
   return (
     <div key={message} className="msg" style = {messageStyle}>
-      {message}
+      <span className="closeX" onClick={() =>closeMsg()}>X</span>
+      <div dangerouslySetInnerHTML={{ __html: message}} />
     </div>
   )
+
 }

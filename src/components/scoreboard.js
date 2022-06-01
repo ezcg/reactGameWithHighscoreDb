@@ -5,22 +5,16 @@ export default function Scoreboard () {
 
   const { wrong, right, isLoggedIn, highScore, currentScore } = useContext(GlobalContext);
 
-  let highScoreContStyle = {width:'280px'}
-  if (!isLoggedIn) {
-    highScoreContStyle = {width:'350px'}
-  }
-
   return (
     <div className="headerCont" key={wrong + "_" + right + "_" + currentScore}>
       <div className="scoreCont">
-        <div className="scoreCorrect">{right}</div>
-        <div className = "divisorSymbol">/</div>
-        <div className="scoreWrong">{wrong}</div>
-        <div className = "equalsSymbol">=</div>
-        <div className = "currentScore">{currentScore}</div>
+        <span className="scoreCorrect">{right}</span>
+        <span className="scoreWrong">{wrong}</span>
+        <span className = "equalsSymbol">Score:</span>
+        <span className = "currentScore">{currentScore}</span>
         <div className="cb"></div>
       </div>
-      <div className="highScoreCont" style={highScoreContStyle}>
+      <div className="highScoreCont">
         High Score:&nbsp;
         {isLoggedIn === 1 && highScore}
         {isLoggedIn === 0 && "Login/Signup to save it!"}

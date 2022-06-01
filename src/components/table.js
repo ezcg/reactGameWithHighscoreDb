@@ -22,7 +22,9 @@ export default function Table () {
     highScore,
     setHighScore,
     showSubmitScoreBtn,
-    setShowSubmitScoreBtn
+    setShowSubmitScoreBtn,
+    showSpinner,
+    setShowSpinner
   } = useContext(GlobalContext);
 
   const [deckArr, setDeckArr] = useState(helpersBase.getDeckArr());
@@ -34,7 +36,9 @@ export default function Table () {
   }
 
   async function submitScore() {
+    setShowSpinner(1)
     let msg = await window.ScoreApp.sendScore(currentScore)
+    setShowSpinner(0)
     setMessage(msg)
     setHighScore(currentScore)
     setShowSubmitScoreBtn(0)
@@ -42,14 +46,7 @@ export default function Table () {
 
   function getCurrentScore(currentWrong, currentRight) {
     let currentScore
-    if (currentWrong === 0) {
-      //console.log("currentWrong", currentWrong)
-      currentScore = 100
-    } else {
-      let val = currentRight / currentWrong * 100
-      //console.log("val", val, "currentRight",currentRight, "currentWrong", currentWrong)
-      currentScore = Math.round(val)
-    }
+    currentScore = currentRight * 100 - currentWrong * 20
     return currentScore
   }
 
@@ -84,13 +81,18 @@ export default function Table () {
     if (activeCardsArr[0]['rank'] === activeCardsArr[1]['rank']) {
       setRight(1);
       currentRight = 1 + right
-      console.log("A currentRight", currentRight)
       if (currentRight === deckArr.length/2) {
-        setMessage("VICTORY!!!");
         setGameover(1)
         let currentScore = getCurrentScore(currentWrong, currentRight)
         if (currentScore > highScore) {
           setShowSubmitScoreBtn(1)
+          if (highScore > 0) {
+            setMessage("You beat your high score of " + highScore + "!")
+          }
+        } else {
+          if (currentScore <= highScore) {
+            setMessage("You didn't beat your high score of " + highScore +".")
+          }
         }
       }
       deckArr.forEach((cardObj, i) => {
@@ -108,15 +110,29 @@ export default function Table () {
     setActiveCardsArr([]);
     let currentScore = getCurrentScore(currentWrong, currentRight)
     setCurrentScore(currentScore)
-    console.log("table.js currentScore", currentScore)
   }
-
+console.log("showSpinner",showSpinner)
   let restartBtnStyle = gameover ? {display:'block'} : {display:'none'};
   let submitScoreBtnStyle = showSubmitScoreBtn ? {display:"block"} : {display:"none"}
+  let spinnerStyle = showSpinner ? {display:"block"} : {"display":"none"}
 
   return <div className="tableCont" key={"key_" + activeCardsArr.length}>
-    <button className='restartBtn' style={restartBtnStyle} onClick={() => restart()}>Play Again?</button>
-    <button className='submitScoreBtn' style={submitScoreBtnStyle} onClick = {() => submitScore()}>Submit Score</button>
+    <div style={spinnerStyle} className="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <span className='scoreBtn' style={restartBtnStyle} onClick={() => restart()}>Play Again?</span>
+    <span className='scoreBtn' style={submitScoreBtnStyle} onClick = {() => submitScore()}>Submit Score</span>
     <div className="cb"></div>
     {deckArr.map((cardObj, i) => {
       return <div className="cardCont" key={i+ '_'+ cardObj['suit']} onClick={() => mngActiveCards(cardObj)}>

@@ -2,9 +2,15 @@ import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
 
 const initialState = {
-  setShowSubmitScoreBtn:0,
+  showSpinner:0,
+  emailVerified:"",
+  emailUnverified:"",
+  passwordVerified:"",
+  passwordUnverified:"",
+  showSubmitScoreBtn:0,
   currentScore:0,
   highScore:0,
+  showVerifyForm:0,
   showLoginForm:0,
   showSignupForm:0,
   isVerified:0,
@@ -21,6 +27,42 @@ const initialState = {
 export const GlobalContext = createContext(initialState)
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState)
+  function setShowSpinner(value) {
+    dispatch({
+      type: 'SHOW_SPINNER',
+      payload: value
+    })
+  }
+  function setShowVerifyForm(value) {
+    dispatch({
+      type: 'SHOW_VERIFY_FORM',
+      payload: value
+    })
+  }
+  function setPasswordUnverified(value) {
+    dispatch({
+      type: 'PASSWORD_UNVERIFIED',
+      payload: value
+    })
+  }
+  function setPasswordVerified(value) {
+    dispatch({
+      type: 'PASSWORD_VERIFIED',
+      payload: value
+    })
+  }
+  function setEmailUnverified(value) {
+    dispatch({
+      type: 'EMAIL_UNVERIFIED',
+      payload: value
+    })
+  }
+  function setEmailVerified(value) {
+    dispatch({
+      type: 'EMAIL_VERIFIED',
+      payload: value
+    })
+  }
   function setShowSubmitScoreBtn(value) {
     dispatch({
       type: 'SHOW_SUBMIT_SCORE_BTN',
@@ -75,42 +117,36 @@ export const GlobalProvider = ({ children }) => {
       payload: value
     })
   }
-
   function setRight(value) {
       dispatch({
           type: 'SCORE_RIGHT',
           payload: value
       })
   }
-
   function setWrong(value) {
       dispatch({
           type: 'SCORE_WRONG',
           payload: value
       })
   }
-
   function setMessage(message) {
       dispatch({
           type: 'MESSAGE',
           payload: message
       })
   }
-
   function setGameover(value) {
       dispatch({
           type: 'GAMEOVER',
           payload: value
       })
   }
-
   function reset() {
       dispatch({
           type: 'RESET',
           payload: 0
       })
   }
-
   function setActiveCardsArr(arr) {
       dispatch({
           type: 'ACTIVE_CARDS',
@@ -120,6 +156,12 @@ export const GlobalProvider = ({ children }) => {
   }
 
   return (<GlobalContext.Provider value={{
+    showSpinner:state.showSpinner,
+    showVerifyForm:state.showVerifyForm,
+    emailVerified:state.emailVerified,
+    emailUnverified:state.emailUnverified,
+    passwordVerified:state.passwordVerified,
+    passwordUnverified:state.passwordUnverified,
     showSubmitScoreBtn:state.showSubmitScoreBtn,
     currentScore:state.currentScore,
     highScore:state.highScore,
@@ -134,6 +176,12 @@ export const GlobalProvider = ({ children }) => {
     message:state.message,
     gameover:state.gameover,
     activeCardsArr:state.activeCardsArr,
+    setShowSpinner,
+    setShowVerifyForm,
+    setEmailVerified,
+    setEmailUnverified,
+    setPasswordVerified,
+    setPasswordUnverified,
     setShowSubmitScoreBtn,
     setShowSignupForm,
     setShowLoginForm,
