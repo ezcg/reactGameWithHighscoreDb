@@ -7,6 +7,7 @@ let helpersBase = require('../helpers/base');
 export default function Table () {
 
   const {
+    isLoggedIn,
     activeCardsArr,
     setActiveCardsArr,
     reset,
@@ -84,15 +85,13 @@ export default function Table () {
       if (currentRight === deckArr.length/2) {
         setGameover(1)
         let currentScore = getCurrentScore(currentWrong, currentRight)
-        if (currentScore > highScore) {
+        if (currentScore > highScore && isLoggedIn) {
           setShowSubmitScoreBtn(1)
           if (highScore > 0) {
             setMessage("You beat your high score of " + highScore + "!")
           }
-        } else {
-          if (currentScore <= highScore) {
-            setMessage("You didn't beat your high score of " + highScore +".")
-          }
+        } else if (isLoggedIn && currentScore <= highScore) {
+          setMessage("You didn't beat your high score of " + highScore +".")
         }
       }
       deckArr.forEach((cardObj, i) => {
