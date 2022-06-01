@@ -26,7 +26,6 @@ export default function Login () {
     setRight,
     setWrong,
     setGameover,
-    showSpinner,
     setShowSpinner
   } = useContext(GlobalContext)
 

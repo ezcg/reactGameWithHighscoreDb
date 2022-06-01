@@ -15,7 +15,6 @@ export default function Signup () {
     setPasswordUnverified,
     showVerifyForm,
     setShowVerifyForm,
-    showSpinner,
     setShowSpinner
   } = useContext(GlobalContext);
 
@@ -39,7 +38,9 @@ export default function Signup () {
   }
   async function handleSignupSubmit(e) {
     e.preventDefault();
+    setShowSpinner(1)
     let r = await window.ScoreApp.signup(emailForm, passwordForm, confirmPasswordForm)
+    setShowSpinner(0)
     if (r.result === false) {
       setMessage(r.message)
     } else {

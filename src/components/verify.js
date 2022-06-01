@@ -18,7 +18,6 @@ export default function Verify () {
     setPasswordUnverified,
     showVerifyForm,
     setShowVerifyForm,
-    showSpinner,
     setShowSpinner
   } = useContext(GlobalContext);
 
