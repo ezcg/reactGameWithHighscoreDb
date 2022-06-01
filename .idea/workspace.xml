@@ -4,22 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a2e740d-3b10-4289-b374-d3518b84ce94" name="Changes" comment="signup/login forms integrating with backend">
-      <change afterPath="$PROJECT_DIR$/src/components/verify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/site.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/site.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/scoreboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/signup.js" afterDir="false" />
+    <list default="true" id="0a2e740d-3b10-4289-b374-d3518b84ce94" name="Changes" comment="fully functional">
       <change beforePath="$PROJECT_DIR$/src/components/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/AppReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/AppReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/GlobalState.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/GlobalState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/todo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +60,7 @@
       <updated>1654010330000</updated>
       <workItem from="1654010331154" duration="79000" />
       <workItem from="1654010420510" duration="30354000" />
-      <workItem from="1654096869221" duration="20216000" />
+      <workItem from="1654096869221" duration="20434000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1654020061917</created>
@@ -104,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654045784425</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fully functional">
+      <created>1654118310716</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1654118310716</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +118,7 @@
     <MESSAGE value="init" />
     <MESSAGE value="signup/login forms created and flow working but without real data" />
     <MESSAGE value="signup/login forms integrating with backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="signup/login forms integrating with backend" />
+    <MESSAGE value="fully functional" />
+    <option name="LAST_COMMIT_MESSAGE" value="fully functional" />
   </component>
 </project>

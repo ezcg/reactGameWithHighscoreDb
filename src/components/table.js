@@ -111,7 +111,7 @@ export default function Table () {
     let currentScore = getCurrentScore(currentWrong, currentRight)
     setCurrentScore(currentScore)
   }
-console.log("showSpinner",showSpinner)
+
   let restartBtnStyle = gameover ? {display:'block'} : {display:'none'};
   let submitScoreBtnStyle = showSubmitScoreBtn ? {display:"block"} : {display:"none"}
   let spinnerStyle = showSpinner ? {display:"block"} : {"display":"none"}
