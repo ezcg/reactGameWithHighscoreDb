@@ -2,7 +2,7 @@ ReactJs memory card game connected to a highscore table on AWS.
 
 ReactJs -> Cognito -> API Gateway -> Lambda -> DynamoDb
 
-For a walk through, go to: https://ezcg.com/
+For a walk through, go to: https://ezcg.com/blog/highscore-table-for-reactjs-game.html
 
 ------------
 
