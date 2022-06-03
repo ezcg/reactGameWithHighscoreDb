@@ -1,6 +1,6 @@
 # Before creating Resources/Methods, do:
 
-* Click on Models in the sidebar, add scoreModel.json and name it score.
+* Click on Models in the sidebar, add scoreModel.json and name it 'score'.
 * Click on Authorizers in the sidebar and add an Authorizer. Select Cognito as the authorizer and add the user pool you created in Cognito. 
 
 # Creating the /score POST method
@@ -14,7 +14,7 @@ Click on the /score resource that was just created and click on Actions -> selec
 **Method Request** 
 
     Next to 'Authorization', add the authorizer you created above.
-    Under Request Body, click on '+ Add Model' and add the score model and set 'Content type' to application/json.
+    Under Request Body, click on '+ Add Model' and add the 'score' model and set 'Content type' to application/json.
     
 **Method Integration** 
 
