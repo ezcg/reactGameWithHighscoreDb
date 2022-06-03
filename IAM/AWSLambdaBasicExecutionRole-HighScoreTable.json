@@ -13,7 +13,6 @@
                 "logs:PutLogEvents"
             ],
             "Resource": [
-                "arn:aws:logs:us-east-1:---YOUR_ACCOUNT_ID---:log-group:/aws/lambda/HighScoreMemoryCardGame:*",
                 "arn:aws:logs:us-east-1:---YOUR_ACCOUNT_ID---:log-group:/aws/lambda/MemoryCardPostScore:*",
                 "arn:aws:logs:us-east-1:---YOUR_ACCOUNT_ID---:log-group:/aws/lambda/MemoryCardGetScore:*"
             ]

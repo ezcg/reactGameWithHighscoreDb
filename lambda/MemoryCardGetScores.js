@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
 
   try {
     console.log("GET /scores event",event)
-    body = await dynamo.scan({ TableName: "HighScoreMemoryCardGame" }).promise();
+    body = await dynamo.scan({ TableName: "---YOUR_DYNAMODB_TABLE_NAME---" }).promise();
 
   } catch (err) {
     console.log("err event",event)

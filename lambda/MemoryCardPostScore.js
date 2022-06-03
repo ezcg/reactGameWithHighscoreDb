@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
     try {
       let r = await dynamo
         .get({
-          TableName: "HighScoreMemoryCardGame",
+          TableName: "---YOUR_DYNAMODB_TABLE_NAME---",
           Key: {
             userId: userId
           }
@@ -54,7 +54,7 @@ exports.handler = async (event, context) => {
 
     await dynamo
       .put({
-        TableName: "HighScoreMemoryCardGame",
+        TableName: "---YOUR_DYNAMODB_TABLE_NAME---",
         Item: {
           userId: userId,
           score: score

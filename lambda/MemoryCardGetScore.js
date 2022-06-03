@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
   try {
     body = await dynamo
       .get({
-        TableName: "HighScoreMemoryCardGame",
+        TableName: "---YOUR_DYNAMODB_TABLE_NAME---",
         Key: {
           userId: userId
         }

@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://55hoqs7yf5.execute-api.us-east-1.amazonaws.com/prod';
+    var invokeUrl = 'https://qg2ve5pmzl.execute-api.us-east-1.amazonaws.com/demo';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -79,20 +79,20 @@ apigClientFactory.newClient = function (config) {
         defaultAcceptType: config.defaultAcceptType
     };
 
-    var apiGatewayClient =window.apiGateway.core.apiGatewayClientFactory.newClient(simpleHttpClientConfig, sigV4ClientConfig);
+    var apiGatewayClient = apiGateway.core.apiGatewayClientFactory.newClient(simpleHttpClientConfig, sigV4ClientConfig);
     
     
     
     apigClient.scorePost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-       window.apiGateway.core.utils.assertParametersDefined(params, ['body'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['body'], ['body']);
         
         var scorePostRequest = {
             verb: 'post'.toUpperCase(),
-            path: pathComponent +window.uritemplate('/score').expand(window.apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
+            path: pathComponent + uritemplate('/score').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
@@ -104,13 +104,13 @@ apigClientFactory.newClient = function (config) {
     apigClient.scoreOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-       window.apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
         var scoreOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent +window.uritemplate('/score').expand(window.apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
+            path: pathComponent + uritemplate('/score').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
@@ -122,13 +122,13 @@ apigClientFactory.newClient = function (config) {
     apigClient.scoreUserIdGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-       window.apiGateway.core.utils.assertParametersDefined(params, ['user_id'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['user_id'], ['body']);
         
         var scoreUserIdGetRequest = {
             verb: 'get'.toUpperCase(),
-            path: pathComponent +window.uritemplate('/score/{user_id}').expand(window.apiGateway.core.utils.parseParametersToObject(params, ['user_id'])),
-            headers:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
+            path: pathComponent + uritemplate('/score/{user_id}').expand(apiGateway.core.utils.parseParametersToObject(params, ['user_id'])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
@@ -140,54 +140,18 @@ apigClientFactory.newClient = function (config) {
     apigClient.scoreUserIdOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-       window.apiGateway.core.utils.assertParametersDefined(params, ['user_id'], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
         var scoreUserIdOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent +window.uritemplate('/score/{user_id}').expand(window.apiGateway.core.utils.parseParametersToObject(params, ['user_id'])),
-            headers:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
+            path: pathComponent + uritemplate('/score/{user_id}').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
         return apiGatewayClient.makeRequest(scoreUserIdOptionsRequest, authType, additionalParams, config.apiKey);
-    };
-    
-    
-    apigClient.scoresGet = function (params, body, additionalParams) {
-        if(additionalParams === undefined) { additionalParams = {}; }
-        
-       window.apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
-        var scoresGetRequest = {
-            verb: 'get'.toUpperCase(),
-            path: pathComponent +window.uritemplate('/scores').expand(window.apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            body: body
-        };
-        
-        
-        return apiGatewayClient.makeRequest(scoresGetRequest, authType, additionalParams, config.apiKey);
-    };
-    
-    
-    apigClient.scoresOptions = function (params, body, additionalParams) {
-        if(additionalParams === undefined) { additionalParams = {}; }
-        
-       window.apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
-        var scoresOptionsRequest = {
-            verb: 'options'.toUpperCase(),
-            path: pathComponent + window.uritemplate('/scores').expand(window.apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: window.apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams:window.apiGateway.core.utils.parseParametersToObject(params, []),
-            body: body
-        };
-        
-        
-        return apiGatewayClient.makeRequest(scoresOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
 

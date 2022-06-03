@@ -12,8 +12,8 @@
         "dynamodb:GetItem"
       ],
       "Resource": [
-        "arn:aws:dynamodb:us-east-1:---YOUR_ACCOUNT_ID---:table/HighScoreMemoryCardGame",
-        "arn:aws:dynamodb:us-east-1:---YOUR_ACCOUNT_ID---:table/HighScoreMemoryCardGame/index/*"
+        "arn:aws:dynamodb:us-east-1:---YOUR_ACCOUNT_ID---:table/---YOUR_DYNAMODB_TABLE_NAME---",
+        "arn:aws:dynamodb:us-east-1:---YOUR_ACCOUNT_ID---:table/---YOUR_DYNAMODB_TABLE_NAME---/index/*"
       ]
     }
   ]
