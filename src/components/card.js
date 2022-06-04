@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import {GlobalContext} from "../context/GlobalState";
-
-let Base = require('../helpers/base.js');
+let Utilities = require("../helpers/utilities")
 
 export default function Card ({cardObj}) {
 
@@ -25,7 +24,7 @@ export default function Card ({cardObj}) {
     } else if (displayed === 'cover') {
         displayCard = "<span style='color:black'>ezCG</span>";
     } else {
-        let rankDisplay = Base.convertRank(rank);
+        let rankDisplay = Utilities.convertRank(rank);
         let htmlSuit = '&spades;';
         if (suit === 'heart') {
             htmlSuit = '&hearts;';

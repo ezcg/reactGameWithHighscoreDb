@@ -1,3 +1,5 @@
+let Utilities = require("../helpers/utilities")
+
 let reducer = (state, action) => {
   switch (action.type) {
     case 'SHOW_SPINNER':
@@ -95,9 +97,16 @@ let reducer = (state, action) => {
         ...state,
         gameover: action.payload
       }
+    case 'ACTIVE_CARDS_ARR':
+      return {
+        ...state,
+        activeCardsArr:action.payload
+      }
     case 'RESET':
       return {
         ...state,
+        deckArr:Utilities.getDeckArr(),
+        activeCardsArr:[],
         gameover: 0,
         message: '',
         right:0,
@@ -111,12 +120,6 @@ let reducer = (state, action) => {
         showVerifyForm:0,
         showSpinner:0
       }
-    case 'ACTIVE_CARDS':
-      return {
-        ...state,
-        activeCardsArr:action.payload
-      }
-
     default: return state
   }
 }

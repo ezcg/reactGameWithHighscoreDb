@@ -27,7 +27,7 @@ export default function Login () {
     setWrong,
     setGameover,
     setShowSpinner,
-    setCurrentScore
+    setReset
   } = useContext(GlobalContext)
 
   let [data, setData] = useState({"emailForm":"","passwordForm":""})
@@ -55,7 +55,7 @@ export default function Login () {
       setMessage(r.message)
       return
     }
-    setCurrentScore(0)
+    setReset(1)
     setEmailVerified(emailForm)
     setPasswordVerified(passwordForm)
     setEmailUnverified("")

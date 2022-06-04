@@ -1,16 +1,15 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState';
 import Card from './card'
-
-let helpersBase = require('../helpers/base');
 
 export default function Table () {
 
   const {
+    deckArr,
     isLoggedIn,
     activeCardsArr,
     setActiveCardsArr,
-    reset,
+    setReset,
     wrong,
     setWrong,
     right,
@@ -28,12 +27,8 @@ export default function Table () {
     setShowSpinner
   } = useContext(GlobalContext);
 
-  const [deckArr, setDeckArr] = useState(helpersBase.getDeckArr());
-
   function restart() {
-    reset();
-    let deckArr = helpersBase.getDeckArr();
-    setDeckArr(deckArr);
+    setReset(1);
   }
 
   async function submitScore() {

@@ -1,7 +1,10 @@
 import React, { createContext, useReducer } from 'react'
 import AppReducer from './AppReducer'
+let Utilities = require("../helpers/utilities")
 
 const initialState = {
+  reset:0,
+  deckArr:Utilities.getDeckArr(),
   showSpinner:0,
   emailVerified:"",
   emailUnverified:"",
@@ -141,7 +144,7 @@ export const GlobalProvider = ({ children }) => {
           payload: value
       })
   }
-  function reset() {
+  function setReset() {
       dispatch({
           type: 'RESET',
           payload: 0
@@ -149,13 +152,13 @@ export const GlobalProvider = ({ children }) => {
   }
   function setActiveCardsArr(arr) {
       dispatch({
-          type: 'ACTIVE_CARDS',
+          type: 'ACTIVE_CARDS_ARR',
           payload: arr
       })
-
   }
 
   return (<GlobalContext.Provider value={{
+    deckArr:state.deckArr,
     showSpinner:state.showSpinner,
     showVerifyForm:state.showVerifyForm,
     emailVerified:state.emailVerified,
@@ -176,6 +179,7 @@ export const GlobalProvider = ({ children }) => {
     message:state.message,
     gameover:state.gameover,
     activeCardsArr:state.activeCardsArr,
+    reset:state.reset,
     setShowSpinner,
     setShowVerifyForm,
     setEmailVerified,
@@ -193,7 +197,7 @@ export const GlobalProvider = ({ children }) => {
     setWrong,
     setMessage,
     setGameover,
-    reset,
+    setReset,
     setActiveCardsArr,
     setHighScore,
     setCurrentScore
