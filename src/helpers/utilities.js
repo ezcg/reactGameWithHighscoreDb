@@ -1,16 +1,30 @@
-export function getDeckArr() {
-  let deckArr = this.createDeck();
+export function getDeckArr(level) {
+  let deckArr = this.createDeck(level);
   deckArr = this.shuffle(deckArr);
   return deckArr;
 }
 
-export function createDeck() {
+export function createDeck(level) {
 
   let suitArr = ['heart','spade','diamond', 'club']
 
   let numCards = 10 // keep it simple
   let maxPairs = numCards / 2 // Two of each card
   let maxSuitsSet = 2 // only use 2 suits
+  if (level === 2) {
+    numCards = 18
+    maxPairs = numCards / 2 // Two of each card
+    maxSuitsSet = 2 // only use 2 suits
+  } else if (level === 3) {
+    numCards = 26
+    maxPairs = numCards / 2 // Two of each card
+    maxSuitsSet = 2 // only use 2 suits
+  } else if (level === 4) {
+    numCards = 52
+    maxPairs = numCards / 4 // 4 of each card
+    maxSuitsSet = 4 // use 4 suits
+  }
+
 
   let deckArr = [];
   // The card suit isn't used to match. A 4 of hearts will match a 4 of spades.

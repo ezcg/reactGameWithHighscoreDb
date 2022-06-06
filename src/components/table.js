@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { GlobalContext } from '../context/GlobalState';
 import Card from './card'
 
+let Utilities = require("../helpers/utilities")
+
 export default function Table () {
 
   const {
@@ -24,11 +26,27 @@ export default function Table () {
     showSubmitScoreBtn,
     setShowSubmitScoreBtn,
     showSpinner,
-    setShowSpinner
+    setShowSpinner,
+    level,
+    setLevel,
+    nextLevel,
+    setNextLevel,
+    nextLevelReady,
+    setNextLevelReady,
+    setDeckArr
   } = useContext(GlobalContext);
 
   function restart() {
     setReset(1);
+  }
+
+  function startNextLevel() {
+    console.log("startNextLevel() level:", level)
+    setRight(0)
+    setWrong(0)
+    setMessage("")
+    setNextLevelReady(0)
+    setDeckArr(Utilities.getDeckArr(level))
   }
 
   async function submitScore() {
@@ -78,15 +96,25 @@ export default function Table () {
       setRight(1);
       currentRight = 1 + right
       if (currentRight === deckArr.length/2) {
-        setGameover(1)
-        let currentScore = getCurrentScore(currentWrong, currentRight)
-        if (currentScore > highScore && isLoggedIn) {
-          setShowSubmitScoreBtn(1)
-          if (highScore > 0) {
-            setMessage("You beat your high score of " + highScore + "!")
+        if (level === 4) {
+          setGameover(1)
+          let currentScore = getCurrentScore(currentWrong, currentRight)
+          if (currentScore > 0 && !isLoggedIn) {
+            setMessage("You won with a score of " + currentScore + "!")
+          } else if (currentScore <= 0) {
+            setMessage("Your score must be greater than 0 to be able to submit it to the high score table.")
+          } else if (currentScore > highScore && isLoggedIn) {
+            setShowSubmitScoreBtn(1)
+            if (highScore > 0) {
+              setMessage("You beat your high score of " + highScore + "!")
+            }
+          } else if (isLoggedIn && currentScore <= highScore) {
+            setMessage("You didn't beat your high score of " + highScore + ".")
           }
-        } else if (isLoggedIn && currentScore <= highScore) {
-          setMessage("You didn't beat your high score of " + highScore +".")
+        } else {
+          setNextLevelReady(1)
+          setMessage("Level " + level + " completed! Next level: " + Number(level + 1))
+          setLevel(level + 1)
         }
       }
       deckArr.forEach((cardObj, i) => {
@@ -108,7 +136,10 @@ export default function Table () {
 
   let restartBtnStyle = gameover ? {display:'block'} : {display:'none'};
   let submitScoreBtnStyle = showSubmitScoreBtn ? {display:"block"} : {display:"none"}
-  let spinnerStyle = showSpinner ? {display:"block"} : {"display":"none"}
+  let spinnerStyle = showSpinner ? {display:"block"} : {display:"none"}
+  let nextLevelBtnStyle = nextLevelReady ? {display:"block"} : {display:"none"}
+
+  console.log("body level", level)
 
   return <div className="tableCont" key={"key_" + activeCardsArr.length}>
     <div style={spinnerStyle} className="lds-default">
@@ -126,6 +157,7 @@ export default function Table () {
       <div></div>
     </div>
     <span className='scoreBtn' style={restartBtnStyle} onClick={() => restart()}>Play Again?</span>
+    <span className='scoreBtn' style={nextLevelBtnStyle} onClick={() => startNextLevel(1)}>Start Next Level?</span>
     <span className='scoreBtn' style={submitScoreBtnStyle} onClick = {() => submitScore()}>Submit Score</span>
     <div className="cb"></div>
     {deckArr.map((cardObj, i) => {

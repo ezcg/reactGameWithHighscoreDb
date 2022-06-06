@@ -4,8 +4,8 @@ let Utilities = require("../helpers/utilities")
 
 const initialState = {
   reset:0,
-  level:0,
-  deckArr:Utilities.getDeckArr(0),
+  level:1,
+  deckArr:Utilities.getDeckArr(1),
   showSpinner:0,
   emailVerified:"",
   emailUnverified:"",
@@ -163,9 +163,22 @@ export const GlobalProvider = ({ children }) => {
       payload: value
     })
   }
+  function setNextLevelReady(value) {
+    dispatch({
+      type: 'NEXT_LEVEL_READY',
+      payload: value
+    })
+  }
+  function setDeckArr(arr) {
+    dispatch({
+      type: 'DECK_ARR',
+      payload: arr
+    })
+  }
 
   return (<GlobalContext.Provider value={{
     level:state.level,
+    nextLevelReady:state.nextLevelReady,
     deckArr:state.deckArr,
     showSpinner:state.showSpinner,
     showVerifyForm:state.showVerifyForm,
@@ -209,7 +222,9 @@ export const GlobalProvider = ({ children }) => {
     setActiveCardsArr,
     setHighScore,
     setCurrentScore,
-    setLevel
+    setLevel,
+    setNextLevelReady,
+    setDeckArr
   }}>
   {children}
   </GlobalContext.Provider>)
