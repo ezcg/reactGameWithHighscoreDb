@@ -33,7 +33,9 @@ export default function Table () {
     setNextLevel,
     nextLevelReady,
     setNextLevelReady,
-    setDeckArr
+    setDeckArr,
+    totalScore,
+    setTotalScore
   } = useContext(GlobalContext);
 
   function restart() {
@@ -42,8 +44,10 @@ export default function Table () {
 
   function startNextLevel() {
     console.log("startNextLevel() level:", level)
+    setTotalScore(currentScore + totalScore)
     setRight(0)
     setWrong(0)
+    setCurrentScore(0)
     setMessage("")
     setNextLevelReady(0)
     setDeckArr(Utilities.getDeckArr(level))
@@ -71,7 +75,7 @@ export default function Table () {
       return;
     }
     // If any already matched card was clicked on, skip
-    if (cardObj['suit'] === 'empty') {
+    if (cardObj['suit'] === 'empty' || cardObj['suit'] === 'correctcheckmark') {
       return;
     }
     // Prevent clicking on a third card while the previous 2 cards are evaluated
@@ -93,8 +97,8 @@ export default function Table () {
     let currentRight = right
     let currentWrong = wrong
     if (activeCardsArr[0]['rank'] === activeCardsArr[1]['rank']) {
-      setRight(1);
       currentRight = 1 + right
+      setRight(currentRight);
       if (currentRight === deckArr.length/2) {
         if (level === 4) {
           setGameover(1)
@@ -127,7 +131,7 @@ export default function Table () {
       });
     } else {
       currentWrong = 1 + wrong
-      setWrong(1);
+      setWrong(currentWrong);
     }
     setActiveCardsArr([]);
     let currentScore = getCurrentScore(currentWrong, currentRight)

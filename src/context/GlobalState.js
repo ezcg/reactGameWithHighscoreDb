@@ -3,6 +3,7 @@ import AppReducer from './AppReducer'
 let Utilities = require("../helpers/utilities")
 
 const initialState = {
+  totalScore:0,
   reset:0,
   level:1,
   deckArr:Utilities.getDeckArr(1),
@@ -73,6 +74,12 @@ export const GlobalProvider = ({ children }) => {
       payload: value
     })
   }
+  function setTotalScore(value) {
+    dispatch({
+      type: 'TOTAL_SCORE',
+      payload: value
+    })
+  }
   function setCurrentScore(value) {
     dispatch({
       type: 'CURRENT_SCORE',
@@ -123,13 +130,13 @@ export const GlobalProvider = ({ children }) => {
   }
   function setRight(value) {
       dispatch({
-          type: 'SCORE_RIGHT',
+          type: 'RIGHT',
           payload: value
       })
   }
   function setWrong(value) {
       dispatch({
-          type: 'SCORE_WRONG',
+          type: 'WRONG',
           payload: value
       })
   }
@@ -177,6 +184,7 @@ export const GlobalProvider = ({ children }) => {
   }
 
   return (<GlobalContext.Provider value={{
+    totalScore:state.totalScore,
     level:state.level,
     nextLevelReady:state.nextLevelReady,
     deckArr:state.deckArr,
@@ -224,7 +232,8 @@ export const GlobalProvider = ({ children }) => {
     setCurrentScore,
     setLevel,
     setNextLevelReady,
-    setDeckArr
+    setDeckArr,
+    setTotalScore
   }}>
   {children}
   </GlobalContext.Provider>)

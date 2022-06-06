@@ -2,6 +2,11 @@ let Utilities = require("../helpers/utilities")
 
 let reducer = (state, action) => {
   switch (action.type) {
+    case 'TOTAL_SCORE':
+      return {
+        ...state,
+        totalScore:action.payload
+      }
     case 'SHOW_SPINNER':
       return {
         ...state,
@@ -77,15 +82,15 @@ let reducer = (state, action) => {
         ...state,
         isSignedUp: action.payload
       }
-    case 'SCORE_RIGHT':
+    case 'RIGHT':
       return {
         ...state,
-        right: state.right + action.payload
+        right: action.payload
       }
-    case 'SCORE_WRONG':
+    case 'WRONG':
       return {
         ...state,
-        wrong: state.wrong + action.payload
+        wrong: action.payload
       }
     case 'MESSAGE':
       return {
@@ -121,6 +126,7 @@ let reducer = (state, action) => {
       return {
         ...state,
         level:1,
+        totalScore:0,
         nextLevelReady:0,
         deckArr:Utilities.getDeckArr(0),
         activeCardsArr:[],
