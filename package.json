@@ -19,7 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deployprod": "aws s3 sync build/ s3://infullstack.com/reactjsmemorygamehighscore",
+    "deploystaging": "aws s3 sync build/ s3://staging.infullstack.com/reactjsmemorygamehighscore"
   },
   "eslintConfig": {
     "extends": "react-app"

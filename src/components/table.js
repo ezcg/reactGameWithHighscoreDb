@@ -29,8 +29,6 @@ export default function Table () {
     setShowSpinner,
     level,
     setLevel,
-    nextLevel,
-    setNextLevel,
     nextLevelReady,
     setNextLevelReady,
     setDeckArr,
